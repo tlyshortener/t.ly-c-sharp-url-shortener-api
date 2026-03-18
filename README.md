@@ -12,6 +12,8 @@ NuGet-ready C# SDK for the T.LY URL Shortener API. The package wraps the endpoin
 
 ## Installation
 
+Package page: [nuget.org/packages/Tly.UrlShortener](https://www.nuget.org/packages/Tly.UrlShortener/)
+
 ```bash
 dotnet add package Tly.UrlShortener
 ```
@@ -128,7 +130,7 @@ dotnet pack src/TlySdk/TlySdk.csproj -c Release -o ./artifacts
 Push the package to NuGet:
 
 ```bash
-dotnet nuget push ./artifacts/Tly.UrlShortener.1.0.0.nupkg \
+dotnet nuget push ./artifacts/Tly.UrlShortener.1.0.1.nupkg \
   --api-key YOUR_NUGET_API_KEY \
   --source https://api.nuget.org/v3/index.json
 ```

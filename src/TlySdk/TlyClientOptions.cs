@@ -10,7 +10,7 @@ public sealed class TlyClientOptions
 
     public Uri BaseUri { get; set; } = new("https://api.t.ly/");
 
-    public string UserAgent { get; set; } = "Tly.UrlShortener/1.0.0";
+    public string UserAgent { get; set; } = "Tly.UrlShortener/1.0.1";
 
     public JsonSerializerOptions JsonSerializerOptions { get; set; } = CreateDefaultJsonSerializerOptions();
 
