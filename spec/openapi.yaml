@@ -1,0 +1,2258 @@
+openapi: 3.0.3
+info:
+  title: 'T.LY URL Shortener API Documentation'
+  description: "T.LY URL Shortener API documentation to create URLs to track, brand, and share short\n    links. This documentation aims to provide all the information you need to work with our API. Please contact support@t.ly if you have any issues."
+  version: 1.0.0
+servers:
+  -
+    url: 'https://api.t.ly'
+tags:
+  -
+    name: 'OneLink Management'
+    description: "\nAPIs for listing and managing OneLinks"
+  -
+    name: 'OneLink Stats Management'
+    description: "\nAPIs for getting OneLink stats"
+  -
+    name: 'Pixel Management'
+    description: "\nAPIs for managing pixels"
+  -
+    name: 'QR Code Management'
+    description: "\nAPIs for managing qr codes"
+  -
+    name: 'ShortLink Management'
+    description: "\nAPIs for managing short links"
+  -
+    name: 'ShortLink Stats'
+    description: "\nAPIs for managing ShortLink stats"
+  -
+    name: 'Tag Management'
+    description: "\nAPIs for managing tags"
+  -
+    name: 'UTM Preset Management'
+    description: "\nAPIs for managing UTM presets"
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'Please sign in and generate an <a href="https://t.ly/settings#/api" target="_parent">API Token</a> to begin using the API.'
+security:
+  -
+    default: []
+paths:
+  /api/v1/onelink/list:
+    get:
+      summary: 'List OneLinks'
+      operationId: listOneLinks
+      description: ''
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'optional Page number for pagination.'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'optional Page number for pagination.'
+            example: 1
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  current_page: 1
+                  data:
+                    -
+                      id: 123
+                      short_id: one
+                      short_url: 'https://t.ly/one'
+                      domain: 'https://t.ly/'
+                      title: 'My OneLink'
+                      description: 'All my links'
+                      avatar_url: 'https://t.ly/storage/onelinks/123/avatar.png'
+                      meta:
+                        appearance:
+                          background_color: '#3b3c3d'
+                          button_color: '#ffffff'
+                          button_font_color: '#3b3c3d'
+                          heading_font_color: '#ffffff'
+                          social_media_icon_color: '#ffffff'
+                        qr_code_options: {  }
+                      template_key: classic
+                      theme_overrides_json: {  }
+                      blocks_json: []
+                      has_password: false
+                      created_at: '2024-06-01T12:00:00.000000Z'
+                      updated_at: '2024-06-02T12:00:00.000000Z'
+                      user:
+                        id: 9
+                        name: 'Jane Doe'
+                        email: jane@example.com
+                      links:
+                        -
+                          id: 55
+                          title: Website
+                          url: 'https://example.com'
+                          type: link
+                          sort_order: 1
+                      social_links:
+                        -
+                          id: 56
+                          title: null
+                          url: 'https://twitter.com/example'
+                          type: social
+                          sub_type: twitter
+                          sort_order: 1
+                      stat_total:
+                        one_link_id: 123
+                        total: 42
+                        unique_total: 39
+                        qr_total: 3
+                      tags: []
+                  per_page: 30
+                  total: 1
+                properties:
+                  current_page:
+                    type: integer
+                    example: 1
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 123
+                        short_id: one
+                        short_url: 'https://t.ly/one'
+                        domain: 'https://t.ly/'
+                        title: 'My OneLink'
+                        description: 'All my links'
+                        avatar_url: 'https://t.ly/storage/onelinks/123/avatar.png'
+                        meta:
+                          appearance:
+                            background_color: '#3b3c3d'
+                            button_color: '#ffffff'
+                            button_font_color: '#3b3c3d'
+                            heading_font_color: '#ffffff'
+                            social_media_icon_color: '#ffffff'
+                          qr_code_options: []
+                        template_key: classic
+                        theme_overrides_json: []
+                        blocks_json: []
+                        has_password: false
+                        created_at: '2024-06-01T12:00:00.000000Z'
+                        updated_at: '2024-06-02T12:00:00.000000Z'
+                        user:
+                          id: 9
+                          name: 'Jane Doe'
+                          email: jane@example.com
+                        links:
+                          -
+                            id: 55
+                            title: Website
+                            url: 'https://example.com'
+                            type: link
+                            sort_order: 1
+                        social_links:
+                          -
+                            id: 56
+                            title: null
+                            url: 'https://twitter.com/example'
+                            type: social
+                            sub_type: twitter
+                            sort_order: 1
+                        stat_total:
+                          one_link_id: 123
+                          total: 42
+                          unique_total: 39
+                          qr_total: 3
+                        tags: []
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 123
+                        short_id:
+                          type: string
+                          example: one
+                        short_url:
+                          type: string
+                          example: 'https://t.ly/one'
+                        domain:
+                          type: string
+                          example: 'https://t.ly/'
+                        title:
+                          type: string
+                          example: 'My OneLink'
+                        description:
+                          type: string
+                          example: 'All my links'
+                        avatar_url:
+                          type: string
+                          example: 'https://t.ly/storage/onelinks/123/avatar.png'
+                        meta:
+                          type: object
+                          properties:
+                            appearance:
+                              type: object
+                              properties:
+                                background_color:
+                                  type: string
+                                  example: '#3b3c3d'
+                                button_color:
+                                  type: string
+                                  example: '#ffffff'
+                                button_font_color:
+                                  type: string
+                                  example: '#3b3c3d'
+                                heading_font_color:
+                                  type: string
+                                  example: '#ffffff'
+                                social_media_icon_color:
+                                  type: string
+                                  example: '#ffffff'
+                            qr_code_options:
+                              type: object
+                              properties: {  }
+                        template_key:
+                          type: string
+                          example: classic
+                        theme_overrides_json:
+                          type: object
+                          properties: {  }
+                        blocks_json:
+                          type: array
+                          example: []
+                        has_password:
+                          type: boolean
+                          example: false
+                        created_at:
+                          type: string
+                          example: '2024-06-01T12:00:00.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2024-06-02T12:00:00.000000Z'
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 9
+                            name:
+                              type: string
+                              example: 'Jane Doe'
+                            email:
+                              type: string
+                              example: jane@example.com
+                        links:
+                          type: array
+                          example:
+                            -
+                              id: 55
+                              title: Website
+                              url: 'https://example.com'
+                              type: link
+                              sort_order: 1
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 55
+                              title:
+                                type: string
+                                example: Website
+                              url:
+                                type: string
+                                example: 'https://example.com'
+                              type:
+                                type: string
+                                example: link
+                              sort_order:
+                                type: integer
+                                example: 1
+                        social_links:
+                          type: array
+                          example:
+                            -
+                              id: 56
+                              title: null
+                              url: 'https://twitter.com/example'
+                              type: social
+                              sub_type: twitter
+                              sort_order: 1
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 56
+                              title:
+                                type: string
+                                example: null
+                                nullable: true
+                              url:
+                                type: string
+                                example: 'https://twitter.com/example'
+                              type:
+                                type: string
+                                example: social
+                              sub_type:
+                                type: string
+                                example: twitter
+                              sort_order:
+                                type: integer
+                                example: 1
+                        stat_total:
+                          type: object
+                          properties:
+                            one_link_id:
+                              type: integer
+                              example: 123
+                            total:
+                              type: integer
+                              example: 42
+                            unique_total:
+                              type: integer
+                              example: 39
+                            qr_total:
+                              type: integer
+                              example: 3
+                        tags:
+                          type: array
+                          example: []
+                  per_page:
+                    type: integer
+                    example: 30
+                  total:
+                    type: integer
+                    example: 1
+      tags:
+        - 'OneLink Management'
+  /api/v1/onelink/stats:
+    get:
+      summary: ''
+      operationId: getApiV1OnelinkStats
+      description: ''
+      parameters:
+        -
+          in: query
+          name: short_url
+          description: 'OneLink short URL to retrieve stats for.'
+          example: 'https://t.ly/one'
+          required: true
+          schema:
+            type: string
+            description: 'OneLink short URL to retrieve stats for.'
+            example: 'https://t.ly/one'
+        -
+          in: query
+          name: start_date
+          description: 'optional Start date for stats range (defaults to 7 days ago).'
+          example: '2024-06-01'
+          required: false
+          schema:
+            type: string
+            description: 'optional Start date for stats range (defaults to 7 days ago).'
+            example: '2024-06-01'
+        -
+          in: query
+          name: end_date
+          description: 'optional End date for stats range (defaults to today).'
+          example: '2024-06-08'
+          required: false
+          schema:
+            type: string
+            description: 'optional End date for stats range (defaults to today).'
+            example: '2024-06-08'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  clicks: 120
+                  unique_clicks: 98
+                  total_qr_scans: 6
+                  browsers:
+                    -
+                      browser: Chrome
+                      total: 80
+                      unique_total: 65
+                      qr_total: 3
+                  countries:
+                    -
+                      country_code: US
+                      total: 90
+                      unique_total: 75
+                      qr_total: 4
+                  cities:
+                    -
+                      country_code: US
+                      region: CA
+                      city: 'San Francisco'
+                      total: 30
+                      unique_total: 24
+                      qr_total: 1
+                  referrers:
+                    -
+                      referrer: direct
+                      total: 40
+                      unique_total: 35
+                      qr_total: 2
+                  platforms:
+                    -
+                      platform: 'Mac OS'
+                      total: 50
+                      unique_total: 40
+                      qr_total: 2
+                  daily_clicks:
+                    -
+                      label: '2024-06-01'
+                      total: 20
+                      unique_total: 18
+                      qr_total: 1
+                  link_clicks:
+                    -
+                      link_id: 55
+                      title: Website
+                      url: 'https://example.com'
+                      total: 70
+                      unique_total: 60
+                  data:
+                    short_url: 'https://t.ly/one'
+                    title: 'My OneLink'
+                    description: 'All my links'
+                    created_at: '2024-06-01T12:00:00.000000Z'
+                    last_clicked: '2024-06-08T12:00:00.000000Z'
+                properties:
+                  clicks:
+                    type: integer
+                    example: 120
+                  unique_clicks:
+                    type: integer
+                    example: 98
+                  total_qr_scans:
+                    type: integer
+                    example: 6
+                  browsers:
+                    type: array
+                    example:
+                      -
+                        browser: Chrome
+                        total: 80
+                        unique_total: 65
+                        qr_total: 3
+                    items:
+                      type: object
+                      properties:
+                        browser:
+                          type: string
+                          example: Chrome
+                        total:
+                          type: integer
+                          example: 80
+                        unique_total:
+                          type: integer
+                          example: 65
+                        qr_total:
+                          type: integer
+                          example: 3
+                  countries:
+                    type: array
+                    example:
+                      -
+                        country_code: US
+                        total: 90
+                        unique_total: 75
+                        qr_total: 4
+                    items:
+                      type: object
+                      properties:
+                        country_code:
+                          type: string
+                          example: US
+                        total:
+                          type: integer
+                          example: 90
+                        unique_total:
+                          type: integer
+                          example: 75
+                        qr_total:
+                          type: integer
+                          example: 4
+                  cities:
+                    type: array
+                    example:
+                      -
+                        country_code: US
+                        region: CA
+                        city: 'San Francisco'
+                        total: 30
+                        unique_total: 24
+                        qr_total: 1
+                    items:
+                      type: object
+                      properties:
+                        country_code:
+                          type: string
+                          example: US
+                        region:
+                          type: string
+                          example: CA
+                        city:
+                          type: string
+                          example: 'San Francisco'
+                        total:
+                          type: integer
+                          example: 30
+                        unique_total:
+                          type: integer
+                          example: 24
+                        qr_total:
+                          type: integer
+                          example: 1
+                  referrers:
+                    type: array
+                    example:
+                      -
+                        referrer: direct
+                        total: 40
+                        unique_total: 35
+                        qr_total: 2
+                    items:
+                      type: object
+                      properties:
+                        referrer:
+                          type: string
+                          example: direct
+                        total:
+                          type: integer
+                          example: 40
+                        unique_total:
+                          type: integer
+                          example: 35
+                        qr_total:
+                          type: integer
+                          example: 2
+                  platforms:
+                    type: array
+                    example:
+                      -
+                        platform: 'Mac OS'
+                        total: 50
+                        unique_total: 40
+                        qr_total: 2
+                    items:
+                      type: object
+                      properties:
+                        platform:
+                          type: string
+                          example: 'Mac OS'
+                        total:
+                          type: integer
+                          example: 50
+                        unique_total:
+                          type: integer
+                          example: 40
+                        qr_total:
+                          type: integer
+                          example: 2
+                  daily_clicks:
+                    type: array
+                    example:
+                      -
+                        label: '2024-06-01'
+                        total: 20
+                        unique_total: 18
+                        qr_total: 1
+                    items:
+                      type: object
+                      properties:
+                        label:
+                          type: string
+                          example: '2024-06-01'
+                        total:
+                          type: integer
+                          example: 20
+                        unique_total:
+                          type: integer
+                          example: 18
+                        qr_total:
+                          type: integer
+                          example: 1
+                  link_clicks:
+                    type: array
+                    example:
+                      -
+                        link_id: 55
+                        title: Website
+                        url: 'https://example.com'
+                        total: 70
+                        unique_total: 60
+                    items:
+                      type: object
+                      properties:
+                        link_id:
+                          type: integer
+                          example: 55
+                        title:
+                          type: string
+                          example: Website
+                        url:
+                          type: string
+                          example: 'https://example.com'
+                        total:
+                          type: integer
+                          example: 70
+                        unique_total:
+                          type: integer
+                          example: 60
+                  data:
+                    type: object
+                    properties:
+                      short_url:
+                        type: string
+                        example: 'https://t.ly/one'
+                      title:
+                        type: string
+                        example: 'My OneLink'
+                      description:
+                        type: string
+                        example: 'All my links'
+                      created_at:
+                        type: string
+                        example: '2024-06-01T12:00:00.000000Z'
+                      last_clicked:
+                        type: string
+                        example: '2024-06-08T12:00:00.000000Z'
+      tags:
+        - 'OneLink Stats Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                short_url:
+                  type: string
+                  description: 'Must not be greater than 9999 characters.'
+                  example: 'http://leuschke.com/'
+                start_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-03-18T15:16:06'
+                  nullable: true
+                end_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-03-18T15:16:06'
+                  nullable: true
+              required:
+                - short_url
+  /api/v1/onelink/stat:
+    delete:
+      summary: 'Delete OneLink Stats'
+      operationId: deleteOneLinkStats
+      description: ''
+      parameters: []
+      responses:
+        202:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {  }
+                properties: {  }
+      tags:
+        - 'OneLink Stats Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                short_url:
+                  type: string
+                  description: 'OneLink short url stats to be deleted.'
+                  example: 'https://t.ly/one'
+              required:
+                - short_url
+  /api/v1/link/pixel:
+    post:
+      summary: 'Create Pixel'
+      operationId: createPixel
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 12345
+                  name: GTMPixel
+                  pixel_id: GTM-xxxx
+                  pixel_type: googleTagManager
+                  created_at: '2024-01-16T19:32:20.000000Z'
+                  updated_at: '2024-01-16T19:32:20.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 12345
+                  name:
+                    type: string
+                    example: GTMPixel
+                  pixel_id:
+                    type: string
+                    example: GTM-xxxx
+                  pixel_type:
+                    type: string
+                    example: googleTagManager
+                  created_at:
+                    type: string
+                    example: '2024-01-16T19:32:20.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-01-16T19:32:20.000000Z'
+      tags:
+        - 'Pixel Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The pixel name.'
+                  example: GTMPixel
+                pixel_id:
+                  type: string
+                  description: 'The pixel id.'
+                  example: GTM-xxxx
+                pixel_type:
+                  type: string
+                  description: 'The pixel type.'
+                  example: googleTagManager
+              required:
+                - name
+                - pixel_id
+                - pixel_type
+    get:
+      summary: 'List Pixel'
+      operationId: listPixel
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 12345
+                    name:
+                      type: string
+                      example: 'GTM Pixel'
+                    pixel_id:
+                      type: string
+                      example: GTM-xxxx
+                    pixel_type:
+                      type: string
+                      example: googleTagManager
+                    created_at:
+                      type: string
+                      example: '2024-01-16T19:32:20.000000Z'
+                    updated_at:
+                      type: string
+                      example: '2024-01-16T19:32:20.000000Z'
+                example:
+                  -
+                    id: 12345
+                    name: 'GTM Pixel'
+                    pixel_id: GTM-xxxx
+                    pixel_type: googleTagManager
+                    created_at: '2024-01-16T19:32:20.000000Z'
+                    updated_at: '2024-01-16T19:32:20.000000Z'
+      tags:
+        - 'Pixel Management'
+  '/api/v1/link/pixel/{id}':
+    get:
+      summary: 'Get Pixel'
+      operationId: getPixel
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 12345
+                  name: GTMPixel
+                  pixel_id: GTM-xxxx
+                  pixel_type: googleTagManager
+                  created_at: '2024-01-16T19:32:20.000000Z'
+                  updated_at: '2024-01-16T19:32:20.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 12345
+                  name:
+                    type: string
+                    example: GTMPixel
+                  pixel_id:
+                    type: string
+                    example: GTM-xxxx
+                  pixel_type:
+                    type: string
+                    example: googleTagManager
+                  created_at:
+                    type: string
+                    example: '2024-01-16T19:32:20.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-01-16T19:32:20.000000Z'
+      tags:
+        - 'Pixel Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ''
+                  example: harum
+              required:
+                - id
+    put:
+      summary: 'Update Pixel'
+      operationId: updatePixel
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 12345
+                  name: GTMPixel
+                  pixel_id: GTM-xxxx
+                  pixel_type: googleTagManager
+                  created_at: '2024-01-16T19:32:20.000000Z'
+                  updated_at: '2024-01-16T19:32:20.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 12345
+                  name:
+                    type: string
+                    example: GTMPixel
+                  pixel_id:
+                    type: string
+                    example: GTM-xxxx
+                  pixel_type:
+                    type: string
+                    example: googleTagManager
+                  created_at:
+                    type: string
+                    example: '2024-01-16T19:32:20.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-01-16T19:32:20.000000Z'
+      tags:
+        - 'Pixel Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 'The pixel id that will be updated.'
+                  example: 12345
+                name:
+                  type: string
+                  description: 'The pixel name.'
+                  example: GTMPixel
+                pixel_id:
+                  type: string
+                  description: 'The pixel id.'
+                  example: GTM-xxxx
+                pixel_type:
+                  type: string
+                  description: 'The pixel type.'
+                  example: googleTagManager
+              required:
+                - id
+                - name
+                - pixel_id
+                - pixel_type
+    delete:
+      summary: 'Delete Pixel'
+      operationId: deletePixel
+      description: ''
+      parameters: []
+      responses:
+        202:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {  }
+                properties: {  }
+      tags:
+        - 'Pixel Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ''
+                  example: commodi
+              required:
+                - id
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the pixel.'
+        example: 12345
+        required: true
+        schema:
+          type: integer
+  /api/v1/link/qr-code:
+    get:
+      summary: 'Get QR Code'
+      operationId: getQRCode
+      description: "Retrieve a QR code for the given short URL.\nBy default, the response will be an image (`image/png`).\nUse the `output=base64` query parameter to receive a base64-encoded string instead."
+      parameters:
+        -
+          in: query
+          name: short_url
+          description: 'The short URL to generate a QR code for.'
+          example: 'https://t.ly/c55j'
+          required: true
+          schema:
+            type: string
+            description: 'The short URL to generate a QR code for.'
+            example: 'https://t.ly/c55j'
+        -
+          in: query
+          name: output
+          description: 'optional The output format. Allowed values: `image`, `base64`. Defaults to `image`.'
+          example: base64
+          required: false
+          schema:
+            type: string
+            description: 'optional The output format. Allowed values: `image`, `base64`. Defaults to `image`.'
+            example: base64
+      responses:
+        200:
+          description: 'Default (image output)'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'binary The response is a `image/png` QR code.'
+      tags:
+        - 'QR Code Management'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                short_url:
+                  type: string
+                  description: 'Must be a valid URL. Must not be greater than 9999 characters.'
+                  example: 'http://bashirian.com/'
+                url:
+                  type: string
+                  description: 'Must be a valid URL. Must not be greater than 9999 characters.'
+                  example: 'http://block.org/fuga-non-consectetur-fugit-veritatis-officiis-et'
+                output:
+                  type: string
+                  description: ''
+                  example: base64
+                  enum:
+                    - image
+                    - base64
+    put:
+      summary: 'Update QR Code'
+      operationId: updateQRCode
+      description: "Update or customize a QR code for a given short URL.\nThis allows adding an embedded image, changing background/dot colors, and setting team/user ownership."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 123
+                  short_url: 'https://t.ly/c55j'
+                  qr_code_options:
+                    image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...'
+                    background_color: '#ffffff'
+                    corner_dots_color: '#000000'
+                    dots_color: '#000000'
+                  team_id: 5
+                  user_id: 42
+                  updated_at: '2025-08-25T20:55:00Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  short_url:
+                    type: string
+                    example: 'https://t.ly/c55j'
+                  qr_code_options:
+                    type: object
+                    properties:
+                      image:
+                        type: string
+                        example: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...'
+                      background_color:
+                        type: string
+                        example: '#ffffff'
+                      corner_dots_color:
+                        type: string
+                        example: '#000000'
+                      dots_color:
+                        type: string
+                        example: '#000000'
+                  team_id:
+                    type: integer
+                    example: 5
+                  user_id:
+                    type: integer
+                    example: 42
+                  updated_at:
+                    type: string
+                    example: '2025-08-25T20:55:00Z'
+      tags:
+        - 'QR Code Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                short_url:
+                  type: string
+                  description: 'The short URL that the QR code belongs to.'
+                  example: 'https://t.ly/c55j'
+                image:
+                  type: string
+                  description: 'nullable A base64-encoded image data URI to embed in the QR code. Supported types: png, jpg, jpeg. Max size ~500 KB.'
+                  example: '"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."'
+                  nullable: true
+                background_color:
+                  type: string
+                  description: 'optional The background color of the QR code in hex format. Defaults to `#ffffff`.'
+                  example: '"#ffffff"'
+                  nullable: true
+                corner_dots_color:
+                  type: string
+                  description: 'optional The color of the QR code corner dots in hex format. Defaults to `#000000`.'
+                  example: '"#000000"'
+                  nullable: true
+                dots_color:
+                  type: string
+                  description: 'optional The color of the QR code dots in hex format. Defaults to `#000000`.'
+                  example: '"#000000"'
+                  nullable: true
+                dots_style:
+                  type: string
+                  description: 'optional Dot pattern style. Allowed values: `square`, `dot`. Defaults to `square`.'
+                  example: '"dot"'
+                  nullable: true
+                corner_style:
+                  type: string
+                  description: 'optional Corner (eye) style. Allowed values: `square`, `circle`. Defaults to `square`.'
+                  example: '"circle"'
+                  nullable: true
+              required:
+                - short_url
+  /api/v1/link/shorten:
+    post:
+      summary: 'Create Short Link'
+      operationId: createShortLink
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n\"short_url\": \"https://t.ly/c55j\",\n\"description\": null,\n\"long_url\": \"https://weatherextension.com/\",\n\"short_url\": \"https://t.ly/c55j\",\n\"domain\": \"https://t.ly/\",\n\"short_id\": \"c55j\",\n\"expire_at_views\": null,\n\"expire_at_datetime\": null,\n\"public_stats\": false,\n\"created_at\": \"2022-01-16T19:32:20.000000Z\",\n\"updated_at\": \"2022-01-16T19:32:20.000000Z\",\n\"meta\": {\n  \"expiration_url\": \"https://example.com/\",\n  \"smart_urls\": [\n       {\n         \"type\": \"US\",\n          \"url\": \"usa.com\"\n      },\n    {\n      \"type\": \"iPhone\",\n    \"url\": \"apple.com\"\n }\n    ]\n  \"rotation_urls\": [\n    {\n      \"url\": \"https://example.com/variant-a\",\n      \"weight\": 60\n    },\n    {\n      \"url\": \"https://example.com/variant-b\",\n      \"weight\": 40\n    }\n  ]\n}\n}"
+      tags:
+        - 'ShortLink Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                include_qr_code:
+                  type: boolean
+                  description: ''
+                  example: false
+                long_url:
+                  type: string
+                  description: 'The long url to be shortened.'
+                  example: 'http://example.com/'
+                format:
+                  type: string
+                  description: ''
+                  example: json
+                  enum:
+                    - json
+                    - text
+                short_id:
+                  type: string
+                  description: 'The short url ending. Example:'
+                  example: null
+                  nullable: true
+                expire_at_time:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-03-18T15:16:06'
+                  nullable: true
+                expire_at_datetime:
+                  type: TimeStamp
+                  description: 'DateTime url will expire in UTC format.'
+                  example: '2035-01-17 15:00:00'
+                  nullable: true
+                expire_at_views:
+                  type: number
+                  description: 'Number of views the short url will be valid. Example:'
+                  example: null
+                  nullable: true
+                public_stats:
+                  type: boolean
+                  description: 'Allow stats to be public.'
+                  example: true
+                  nullable: true
+                password:
+                  type: string
+                  description: 'Add a password to a URL. Send an empty string to remove the password. Example:'
+                  example: null
+                  nullable: true
+                description:
+                  type: string
+                  description: 'Description to help describe the URL.'
+                  example: 'Social Media Link'
+                  nullable: true
+                tags:
+                  type: array
+                  description: 'Tags ids to be associated with the link. Example:'
+                  example: null
+                  items:
+                    type: integer
+                pixels:
+                  type: array
+                  description: 'Pixels ids to be associated with the link. Example:'
+                  example: null
+                  items:
+                    type: integer
+                meta:
+                  type: array
+                  description: 'Meta is where you can add Expiration URL, Smart URLs, and Rotation URLs for A/B testing. Smart URLs and Rotation URLs are mutually exclusive; sending both returns a 422. Rotation URLs define the full set of A/B destinations; include the primary long_url if you want it included in rotation. You can set a single `type` or pass multiple `conditions` to require an AND match. Here is a list of <a target="_parent" href="https://api.t.ly/api/v1/docs/link/smart_url_options">Smart URLs Options</a>'
+                  example: null
+                  items:
+                    type: object
+                    nullable: true
+                domain:
+                  type: string
+                  description: 'Custom domain used to shorten links.'
+                  example: 'https://t.ly/'
+              required:
+                - long_url
+  /api/v1/link/list:
+    get:
+      summary: 'List Short Links'
+      operationId: listShortLinks
+      description: ''
+      parameters:
+        -
+          in: query
+          name: search
+          description: 'Search string used to filter'
+          example: amazon
+          required: false
+          schema:
+            type: string
+            description: 'Search string used to filter'
+            example: amazon
+        -
+          in: query
+          name: tag_ids
+          description: 'List of Tag Ids used to filter'
+          example:
+            - 1
+            - 2
+            - 3
+          required: false
+          schema:
+            type: array
+            description: 'List of Tag Ids used to filter'
+            example:
+              - 1
+              - 2
+              - 3
+            items:
+              type: integer
+        -
+          in: query
+          name: pixel_ids
+          description: 'List of Pixel Ids used to filter'
+          example:
+            - 1
+            - 2
+            - 3
+          required: false
+          schema:
+            type: array
+            description: 'List of Pixel Ids used to filter'
+            example:
+              - 1
+              - 2
+              - 3
+            items:
+              type: integer
+        -
+          in: query
+          name: start_date
+          description: 'Start Date used to filter'
+          example: '2035-01-17 15:00:00'
+          required: false
+          schema:
+            type: string
+            description: 'Start Date used to filter'
+            example: '2035-01-17 15:00:00'
+        -
+          in: query
+          name: end_date
+          description: 'End Date used to filter'
+          example: '2037-01-17 15:00:00'
+          required: false
+          schema:
+            type: string
+            description: 'End Date used to filter'
+            example: '2037-01-17 15:00:00'
+        -
+          in: query
+          name: domains
+          description: 'List of Domain Ids to filter'
+          example:
+            - 1
+            - 2
+            - 3
+          required: false
+          schema:
+            type: array
+            description: 'List of Domain Ids to filter'
+            example:
+              - 1
+              - 2
+              - 3
+            items:
+              type: integer
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n\"current_page\": 1,\n\"data\": [\n   {\n       \"description\": null,\n       \"long_url\": \"https:\\/\\/google.com\\/\",\n       \"short_url\": \"https:\\/\\/t.ly\\/1234\",\n       \"domain\": \"https:\\/\\/t.ly\\/\",\n       \"short_id\": \"1234\",\n       \"user_id\": 1,\n       \"team_id\": 1,\n       \"domain_id\": null,\n       \"expire_at_datetime\": null,\n       \"expire_at_views\": null,\n       \"public_stats\": false,\n       \"meta\": {\n           \"smart_urls\": []\n       },\n       \"created_at\": \"2024-03-12T13:24:52.000000Z\",\n       \"updated_at\": \"2024-03-12T13:24:52.000000Z\",\n       \"has_password\": false,\n       \"short_stats\": {},\n       \"user\": {\n           \"id\": 1,\n           \"name\": \"Tim\",\n           \"email\": \"example@gmail.com\",\n       },\n       \"tags\": [],\n       \"pixels\": []\n   }\n]\n}"
+      tags:
+        - 'ShortLink Management'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: string
+                  description: 'Must not be greater than 9999 characters.'
+                  example: bzwmuiezvuwntbxjc
+                tag_ids:
+                  type: object
+                  description: 'Must not have more than 10 items.'
+                  example: null
+                  properties: {  }
+                  nullable: true
+                pixel_ids:
+                  type: object
+                  description: 'Must not have more than 10 items.'
+                  example: null
+                  properties: {  }
+                  nullable: true
+                start_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-03-18T15:16:06'
+                  nullable: true
+                end_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-03-18T15:16:06'
+                  nullable: true
+                domains:
+                  type: object
+                  description: 'Must not have more than 10 items.'
+                  example: null
+                  properties: {  }
+                  nullable: true
+                user_ids:
+                  type: object
+                  description: 'Must not have more than 10 items.'
+                  example: null
+                  properties: {  }
+                  nullable: true
+                limit:
+                  type: integer
+                  description: 'Must not be greater than 5000.'
+                  example: 22
+                  nullable: true
+                page:
+                  type: integer
+                  description: 'Must be at least 1.'
+                  example: 33
+                  nullable: true
+  /api/v1/link/expand:
+    post:
+      summary: 'Expand Short Link'
+      operationId: expandShortLink
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  long_url: 'http: //example.com/'
+                  expired: false
+                properties:
+                  long_url:
+                    type: string
+                    example: 'http: //example.com/'
+                  expired:
+                    type: boolean
+                    example: false
+      tags:
+        - 'ShortLink Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                short_url:
+                  type: string
+                  description: 'Short url to be expanded.'
+                  example: 'https://t.ly/OYXL'
+                is_qr_code:
+                  type: boolean
+                  description: ''
+                  example: false
+                password:
+                  type: string
+                  description: 'Password to unlock link.'
+                  example: password123
+                  nullable: true
+              required:
+                - short_url
+  /api/v1/link/bulk:
+    post:
+      summary: 'Bulk Shorten Links'
+      operationId: bulkShortenLinks
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\ntrue\n}"
+      tags:
+        - 'ShortLink Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+                  description: 'The domain used to shorten links.'
+                  example: 'https://t.ly/'
+                links:
+                  type: array
+                  description: 'Array of links to be shortened.'
+                  example: "[{LongUrl: 'google.com', Backhalf: '123', Password: '123', Description: 'Short Link Description' }]"
+                  items:
+                    type: string
+                tags:
+                  type: array
+                  description: 'Tag IDs.'
+                  example:
+                    - 1
+                    - 2
+                    - 3
+                  items:
+                    type: integer
+                    nullable: true
+                pixels:
+                  type: array
+                  description: 'Pixel IDs.'
+                  example:
+                    - 1
+                    - 2
+                    - 3
+                  items:
+                    type: integer
+                    nullable: true
+              required:
+                - domain
+                - links
+  /api/v1/link/bulk/update:
+    post:
+      summary: 'Bulk Update Links'
+      operationId: bulkUpdateLinks
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\ntrue\n}"
+      tags:
+        - 'ShortLink Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                links:
+                  type: array
+                  description: 'Array of links to be updated.'
+                  example: "[{ShortURL: 'https://t.ly/123', LongURL: 'https://google.com', Backhalf: 'new', Password: '123', Description: 'Short Link Description' }]"
+                  items:
+                    type: string
+                tags:
+                  type: array
+                  description: 'Tag IDs.'
+                  example:
+                    - 1
+                    - 2
+                    - 3
+                  items:
+                    type: integer
+                    nullable: true
+                pixels:
+                  type: array
+                  description: 'Pixel IDs.'
+                  example:
+                    - 1
+                    - 2
+                    - 3
+                  items:
+                    type: integer
+                    nullable: true
+              required:
+                - links
+  /api/v1/link:
+    get:
+      summary: 'Get Short Link'
+      operationId: getShortLink
+      description: ''
+      parameters:
+        -
+          in: query
+          name: short_url
+          description: 'Short url used to retrieve'
+          example: 'https://t.ly/c55j'
+          required: true
+          schema:
+            type: string
+            description: 'Short url used to retrieve'
+            example: 'https://t.ly/c55j'
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n \"short_url\": \"https://t.ly/c55j\",\n \"long_url\": \"https://weatherextension.com/\",\n \"domain\": \"https://t.ly/\",\n \"short_id\": \"c55j\",\n \"expire_at_views\": null,\n \"expire_at_datetime\": null,\n \"public_stats\": false,\n \"qr_code_url\": \"https://api.t.ly/api/v1/link/qr-code?short_url=https://t.ly/c55j\",\n \"qr_code_base64\": \"data:image/png;base64,iVBORw0KGgoA...\"\n \"tags\": []\n \"pixels\": []\n}"
+      tags:
+        - 'ShortLink Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                short_url:
+                  type: string
+                  description: 'Must not be greater than 9999 characters.'
+                  example: 'http://ledner.biz/ut-harum-quisquam-blanditiis-voluptate-pariatur.html'
+              required:
+                - short_url
+    put:
+      summary: 'Update Short Link'
+      operationId: updateShortLink
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n \"short_url\": \"https://t.ly/c55j\",\n\"description\": null,\n\"long_url\": \"https://weatherextension.com/\",\n\"short_url\": \"https://t.ly/c55j\",\n\"domain\": \"https://t.ly/\",\n\"short_id\": \"c55j\",\n\"expire_at_views\": null,\n\"expire_at_datetime\": null,\n\"public_stats\": false,\n\"created_at\": \"2022-01-16T19:32:20.000000Z\",\n\"updated_at\": \"2022-01-16T19:32:20.000000Z\",\n\"meta\": {\n  \"expiration_url\": \"https://example.com/\",\n  \"smart_urls\": [\n       {\n         \"type\": \"US\",\n          \"url\": \"usa.com\"\n      },\n    {\n      \"type\": \"iPhone\",\n    \"url\": \"apple.com\"\n }\n    ]\n  \"rotation_urls\": [\n    {\n      \"url\": \"https://example.com/variant-a\",\n      \"weight\": 60\n    },\n    {\n      \"url\": \"https://example.com/variant-b\",\n      \"weight\": 40\n    }\n  ]\n}\n}"
+      tags:
+        - 'ShortLink Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: 'Description to help describe the URL.'
+                  example: 'Social Media Link'
+                  nullable: true
+                short_url:
+                  type: string
+                  description: 'The short url.'
+                  example: 'https://t.ly/OYXL'
+                short_id:
+                  type: string
+                  description: 'The short url ending. Example:'
+                  example: null
+                  nullable: true
+                long_url:
+                  type: Url
+                  description: 'The long url to be updated.'
+                  example: 'https://weatherextension.com/'
+                  nullable: true
+                expire_at_time:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-03-18T15:16:06'
+                  nullable: true
+                expire_at_datetime:
+                  type: TimeStamp
+                  description: 'DateTime url will expire in UTC format.'
+                  example: '2035-01-17 15:00:00'
+                  nullable: true
+                expire_at_views:
+                  type: number
+                  description: 'Number of views the short url will be valid. Example:'
+                  example: null
+                  nullable: true
+                public_stats:
+                  type: boolean
+                  description: 'Allow stats to be public.'
+                  example: true
+                  nullable: true
+                meta:
+                  type: array
+                  description: 'Meta is where you can add Expiration URL, Smart URLs, and Rotation URLs for A/B testing. Smart URLs and Rotation URLs are mutually exclusive; sending both returns a 422. Rotation URLs define the full set of A/B destinations; include the primary long_url if you want it included in rotation. Here is a list of <a target="_parent" href="https://api.t.ly/api/v1/docs/link/smart_url_options">Smart URLs Options</a>'
+                  example: null
+                  items:
+                    type: object
+                    nullable: true
+                password:
+                  type: string
+                  description: 'Add a password to a URL. Example:'
+                  example: null
+                  nullable: true
+                tags:
+                  type: array
+                  description: 'Tags ids to be associated with the link. Example:'
+                  example: null
+                  items:
+                    type: integer
+                pixels:
+                  type: array
+                  description: 'Pixels ids to be associated with the link. Example:'
+                  example: null
+                  items:
+                    type: integer
+              required:
+                - short_url
+    delete:
+      summary: 'Delete Short Link'
+      operationId: deleteShortLink
+      description: ''
+      parameters: []
+      responses:
+        202:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {  }
+                properties: {  }
+      tags:
+        - 'ShortLink Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                short_url:
+                  type: string
+                  description: 'Short url to be deleted.'
+                  example: 'https://t.ly/OYXL'
+              required:
+                - short_url
+  /api/v1/link/stats:
+    get:
+      summary: Stats
+      operationId: stats
+      description: ''
+      parameters:
+        -
+          in: query
+          name: short_url
+          description: 'Get stats for short url.'
+          example: 'https://t.ly/OYXL'
+          required: true
+          schema:
+            type: string
+            description: 'Get stats for short url.'
+            example: 'https://t.ly/OYXL'
+        -
+          in: query
+          name: start_date
+          description: 'Start Date used to filter'
+          example: '2025-08-01T00:00:00Z'
+          required: false
+          schema:
+            type: string
+            description: 'Start Date used to filter'
+            example: '2025-08-01T00:00:00Z'
+        -
+          in: query
+          name: end_date
+          description: 'End Date used to filter'
+          example: '2025-08-31T23:59:59Z'
+          required: false
+          schema:
+            type: string
+            description: 'End Date used to filter'
+            example: '2025-08-31T23:59:59Z'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  clicks: 0
+                  unique_clicks: 0
+                  browsers: []
+                  countries: []
+                  referrers: []
+                  platforms: []
+                  daily_clicks: []
+                  data:
+                    description: null
+                    long_url: 'https://weatherextension.com/'
+                    short_url: 'https://t.ly/c55j'
+                    created_at: '2022-01-16T19:10:36.000000Z'
+                properties:
+                  clicks:
+                    type: integer
+                    example: 0
+                  unique_clicks:
+                    type: integer
+                    example: 0
+                  browsers:
+                    type: array
+                    example: []
+                  countries:
+                    type: array
+                    example: []
+                  referrers:
+                    type: array
+                    example: []
+                  platforms:
+                    type: array
+                    example: []
+                  daily_clicks:
+                    type: array
+                    example: []
+                  data:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        example: null
+                        nullable: true
+                      long_url:
+                        type: string
+                        example: 'https://weatherextension.com/'
+                      short_url:
+                        type: string
+                        example: 'https://t.ly/c55j'
+                      created_at:
+                        type: string
+                        example: '2022-01-16T19:10:36.000000Z'
+      tags:
+        - 'ShortLink Stats'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                short_url:
+                  type: string
+                  description: 'Must not be greater than 9999 characters.'
+                  example: 'http://wintheiser.biz/dolores-voluptates-voluptatem-laboriosam-delectus-aut-aperiam.html'
+                start_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-03-18T15:16:06'
+                  nullable: true
+                end_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-03-18T15:16:06'
+                  nullable: true
+              required:
+                - short_url
+  /api/v1/link/tag:
+    post:
+      summary: 'Create Tag'
+      operationId: createTag
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 12345
+                  tag: fall2024
+                  created_at: '2024-01-16T19:32:20.000000Z'
+                  updated_at: '2024-01-16T19:32:20.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 12345
+                  tag:
+                    type: string
+                    example: fall2024
+                  created_at:
+                    type: string
+                    example: '2024-01-16T19:32:20.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-01-16T19:32:20.000000Z'
+      tags:
+        - 'Tag Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag:
+                  type: string
+                  description: 'The tag value.'
+                  example: fall2024
+              required:
+                - tag
+    get:
+      summary: 'List Tag'
+      operationId: listTag
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 12345
+                    tag:
+                      type: string
+                      example: fall2024
+                    created_at:
+                      type: string
+                      example: '2024-01-16T19:32:20.000000Z'
+                    updated_at:
+                      type: string
+                      example: '2024-01-16T19:32:20.000000Z'
+                example:
+                  -
+                    id: 12345
+                    tag: fall2024
+                    created_at: '2024-01-16T19:32:20.000000Z'
+                    updated_at: '2024-01-16T19:32:20.000000Z'
+      tags:
+        - 'Tag Management'
+  '/api/v1/link/tag/{id}':
+    get:
+      summary: 'Get Tag'
+      operationId: getTag
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 12345
+                  tag: fall2024
+                  created_at: '2025-01-16T19:32:20.000000Z'
+                  updated_at: '2025-01-16T19:32:20.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 12345
+                  tag:
+                    type: string
+                    example: fall2024
+                  created_at:
+                    type: string
+                    example: '2025-01-16T19:32:20.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2025-01-16T19:32:20.000000Z'
+      tags:
+        - 'Tag Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ''
+                  example: magni
+              required:
+                - id
+    put:
+      summary: 'Update Tag'
+      operationId: updateTag
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 12345
+                  tag: fall2025
+                  created_at: '2025-01-16T19:32:20.000000Z'
+                  updated_at: '2025-01-16T19:32:20.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 12345
+                  tag:
+                    type: string
+                    example: fall2025
+                  created_at:
+                    type: string
+                    example: '2025-01-16T19:32:20.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2025-01-16T19:32:20.000000Z'
+      tags:
+        - 'Tag Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ''
+                  example: quod
+                tag:
+                  type: string
+                  description: 'The new tag value.'
+                  example: fall2025
+              required:
+                - id
+                - tag
+    delete:
+      summary: 'Delete Tag'
+      operationId: deleteTag
+      description: ''
+      parameters: []
+      responses:
+        202:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {  }
+                properties: {  }
+      tags:
+        - 'Tag Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ''
+                  example: numquam
+              required:
+                - id
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The tag id that will be returned.'
+        example: 12345
+        required: true
+        schema:
+          type: integer
+  /api/v1/link/utm-preset:
+    post:
+      summary: 'Create UTM Preset'
+      operationId: createUTMPreset
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'UTM Preset Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The preset name.'
+                  example: 'Newsletter Launch'
+                source:
+                  type: string
+                  description: 'The UTM source value.'
+                  example: newsletter
+                  nullable: true
+                medium:
+                  type: string
+                  description: 'The UTM medium value.'
+                  example: email
+                  nullable: true
+                campaign:
+                  type: string
+                  description: 'The UTM campaign value.'
+                  example: fall_launch
+                  nullable: true
+                content:
+                  type: string
+                  description: 'The UTM content value.'
+                  example: hero-cta
+                  nullable: true
+                term:
+                  type: string
+                  description: 'The UTM term value.'
+                  example: running-shoes
+                  nullable: true
+              required:
+                - name
+    get:
+      summary: 'List UTM Presets'
+      operationId: listUTMPresets
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 12345
+                    name:
+                      type: string
+                      example: 'Newsletter Launch'
+                    source:
+                      type: string
+                      example: newsletter
+                    medium:
+                      type: string
+                      example: email
+                    campaign:
+                      type: string
+                      example: fall_launch
+                    content:
+                      type: string
+                      example: hero-cta
+                    term:
+                      type: string
+                      example: running-shoes
+                    created_at:
+                      type: string
+                      example: '2026-03-18T12:00:00.000000Z'
+                    updated_at:
+                      type: string
+                      example: '2026-03-18T12:00:00.000000Z'
+                example:
+                  -
+                    id: 12345
+                    name: 'Newsletter Launch'
+                    source: newsletter
+                    medium: email
+                    campaign: fall_launch
+                    content: hero-cta
+                    term: running-shoes
+                    created_at: '2026-03-18T12:00:00.000000Z'
+                    updated_at: '2026-03-18T12:00:00.000000Z'
+      tags:
+        - 'UTM Preset Management'
+  '/api/v1/link/utm-preset/{id}':
+    get:
+      summary: 'Get UTM Preset'
+      operationId: getUTMPreset
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 12345
+                  name: 'Newsletter Launch'
+                  source: newsletter
+                  medium: email
+                  campaign: fall_launch
+                  content: hero-cta
+                  term: running-shoes
+                  created_at: '2026-03-18T12:00:00.000000Z'
+                  updated_at: '2026-03-18T12:00:00.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 12345
+                  name:
+                    type: string
+                    example: 'Newsletter Launch'
+                  source:
+                    type: string
+                    example: newsletter
+                  medium:
+                    type: string
+                    example: email
+                  campaign:
+                    type: string
+                    example: fall_launch
+                  content:
+                    type: string
+                    example: hero-cta
+                  term:
+                    type: string
+                    example: running-shoes
+                  created_at:
+                    type: string
+                    example: '2026-03-18T12:00:00.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2026-03-18T12:00:00.000000Z'
+      tags:
+        - 'UTM Preset Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ''
+                  example: qui
+              required:
+                - id
+    put:
+      summary: 'Update UTM Preset'
+      operationId: updateUTMPreset
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'UTM Preset Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ''
+                  example: quia
+                name:
+                  type: string
+                  description: 'The preset name.'
+                  example: 'Newsletter Launch'
+                source:
+                  type: string
+                  description: 'The UTM source value.'
+                  example: newsletter
+                  nullable: true
+                medium:
+                  type: string
+                  description: 'The UTM medium value.'
+                  example: email
+                  nullable: true
+                campaign:
+                  type: string
+                  description: 'The UTM campaign value.'
+                  example: fall_launch
+                  nullable: true
+                content:
+                  type: string
+                  description: 'The UTM content value.'
+                  example: hero-cta
+                  nullable: true
+                term:
+                  type: string
+                  description: 'The UTM term value.'
+                  example: running-shoes
+                  nullable: true
+              required:
+                - id
+                - name
+    delete:
+      summary: 'Delete UTM Preset'
+      operationId: deleteUTMPreset
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'UTM Preset Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ''
+                  example: doloribus
+              required:
+                - id
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The preset id that will be returned.'
+        example: 12345
+        required: true
+        schema:
+          type: integer

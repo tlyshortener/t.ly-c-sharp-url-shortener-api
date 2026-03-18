@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DC04E4C9-A895-408E-A505-FCE1D2A6B41D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TlySdk", "src\TlySdk\TlySdk.csproj", "{65C4BFB5-7D68-46E2-8B5B-A881C8C65855}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{390DFBFB-3C2D-4632-AA47-4C2B4C296B05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TlySdk.Tests", "tests\TlySdk.Tests\TlySdk.Tests.csproj", "{F0858B33-615A-4DE6-B1DE-EA36E69C7B2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65C4BFB5-7D68-46E2-8B5B-A881C8C65855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65C4BFB5-7D68-46E2-8B5B-A881C8C65855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65C4BFB5-7D68-46E2-8B5B-A881C8C65855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65C4BFB5-7D68-46E2-8B5B-A881C8C65855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0858B33-615A-4DE6-B1DE-EA36E69C7B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0858B33-615A-4DE6-B1DE-EA36E69C7B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0858B33-615A-4DE6-B1DE-EA36E69C7B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0858B33-615A-4DE6-B1DE-EA36E69C7B2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{65C4BFB5-7D68-46E2-8B5B-A881C8C65855} = {DC04E4C9-A895-408E-A505-FCE1D2A6B41D}
+		{F0858B33-615A-4DE6-B1DE-EA36E69C7B2E} = {390DFBFB-3C2D-4632-AA47-4C2B4C296B05}
+	EndGlobalSection
+EndGlobal
