@@ -17,7 +17,7 @@ dotnet pack src/TlySdk/TlySdk.csproj -c Release -o ./artifacts
 ## Push
 
 ```bash
-dotnet nuget push ./artifacts/Tly.UrlShortener.1.0.1.nupkg \
+dotnet nuget push ./artifacts/Tly.UrlShortener.1.0.2.nupkg \
   --api-key YOUR_NUGET_API_KEY \
   --source https://api.nuget.org/v3/index.json
 ```

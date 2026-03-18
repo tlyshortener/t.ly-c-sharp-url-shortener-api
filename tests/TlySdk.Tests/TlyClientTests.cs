@@ -76,6 +76,8 @@ public sealed class TlyClientTests
                 Assert.Contains("\"public_stats\":true", request.Body);
                 Assert.Contains("\"expire_at_datetime\":\"2026-03-18 14:30:00\"", request.Body);
                 Assert.Equal("Bearer test-api-key", request.Headers["Authorization"]);
+                Assert.Contains("application/json", request.Headers["Accept"]);
+                Assert.Contains("text/plain", request.Headers["Accept"]);
             },
             request =>
             {
@@ -443,7 +445,7 @@ public sealed class TlyClientTests
 
         using var client = CreateClient(handler);
 
-        var base64 = await client.GetQrCodeAsync("https://t.ly/c55j", output: "base64", format: "png");
+        var base64 = await client.GetQrCodeAsync("https://t.ly/c55j", output: "base64");
         var updated = await client.UpdateQrCodeAsync(new UpdateQrCodeRequest
         {
             ShortUrl = "https://t.ly/c55j",
@@ -492,6 +494,22 @@ public sealed class TlyClientTests
 
         Assert.Equal("https://t.ly/plain", shortUrl);
         Assert.Contains("\"format\":\"text\"", handler.Requests.Single().Body);
+        Assert.StartsWith("text/plain", handler.Requests.Single().Headers["Accept"]);
+        Assert.Contains("application/json", handler.Requests.Single().Headers["Accept"]);
+    }
+
+    [Fact]
+    public async Task GetQrCodeAsync_WithFormatParameter_ThrowsArgumentException()
+    {
+        var handler = CreateHandler(TextResponse("data:image/png;base64,iVBORw0KGgoA..."));
+        using var client = CreateClient(handler);
+
+#pragma warning disable CS0618
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => client.GetQrCodeAsync("https://t.ly/c55j", "base64", "png"));
+#pragma warning restore CS0618
+
+        Assert.Equal("format", exception.ParamName);
+        Assert.Empty(handler.Requests);
     }
 
     [Fact]

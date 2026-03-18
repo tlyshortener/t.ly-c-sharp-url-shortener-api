@@ -7,7 +7,7 @@
     <PackageId>Tly.UrlShortener</PackageId>
     <Title>T.LY URL Shortener SDK for .NET</Title>
     <Description>NuGet-ready .NET SDK for the T.LY URL Shortener API, including short links, QR codes, tags, pixels, UTM presets, OneLinks, and analytics.</Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>T.LY</Authors>
     <Company>T.LY</Company>
     <PackageTags>tly;url-shortener;short-links;qr-codes;onelinks;analytics</PackageTags>

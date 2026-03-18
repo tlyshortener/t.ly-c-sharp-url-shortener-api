@@ -13,6 +13,9 @@ namespace Tly;
 public sealed class TlyClient : IDisposable
 {
     private const string JsonMediaType = "application/json";
+    private const string TextMediaType = "text/plain";
+    private static readonly string[] DefaultAcceptMediaTypes = { JsonMediaType, TextMediaType };
+    private static readonly string[] TextPreferredAcceptMediaTypes = { TextMediaType, JsonMediaType };
     private readonly HttpClient _httpClient;
     private readonly bool _disposeHttpClient;
     private readonly string _apiKey;
@@ -75,7 +78,12 @@ public sealed class TlyClient : IDisposable
         }
 
         EnsureNotNullOrWhiteSpace(request.LongUrl, nameof(request.LongUrl));
-        return SendAsync<string>(HttpMethod.Post, "/api/v1/link/shorten", CreateCreateShortLinkBody(request, "text"), cancellationToken: cancellationToken);
+        return SendAsync<string>(
+            HttpMethod.Post,
+            "/api/v1/link/shorten",
+            CreateCreateShortLinkBody(request, "text"),
+            cancellationToken: cancellationToken,
+            acceptMediaTypes: TextPreferredAcceptMediaTypes);
     }
 
     public Task<ShortLink> GetShortLinkAsync(string shortUrl, CancellationToken cancellationToken = default)
@@ -254,7 +262,7 @@ public sealed class TlyClient : IDisposable
         return SendWithoutResultAsync(HttpMethod.Delete, $"/api/v1/link/pixel/{id}", cancellationToken: cancellationToken);
     }
 
-    public Task<QrCodeResponse> GetQrCodeAsync(string shortUrl, string? output = null, string? format = null, CancellationToken cancellationToken = default)
+    public Task<QrCodeResponse> GetQrCodeAsync(string shortUrl, string? output = null, CancellationToken cancellationToken = default)
     {
         EnsureNotNullOrWhiteSpace(shortUrl, nameof(shortUrl));
         var query = new QueryStringBuilder()
@@ -262,6 +270,17 @@ public sealed class TlyClient : IDisposable
             .Add("output", output);
 
         return SendQrCodeAsync("/api/v1/link/qr-code", query, output, cancellationToken);
+    }
+
+    [Obsolete("The format parameter is not supported by the current T.LY API. Use the overload without format.")]
+    public Task<QrCodeResponse> GetQrCodeAsync(string shortUrl, string? output, string? format, CancellationToken cancellationToken = default)
+    {
+        if (!string.IsNullOrWhiteSpace(format))
+        {
+            throw new ArgumentException("The current T.LY API does not support the format query parameter.", nameof(format));
+        }
+
+        return GetQrCodeAsync(shortUrl, output, cancellationToken);
     }
 
     public Task<QrCodeSettings> UpdateQrCodeAsync(UpdateQrCodeRequest request, CancellationToken cancellationToken = default)
@@ -321,9 +340,15 @@ public sealed class TlyClient : IDisposable
         return response ?? new List<T>();
     }
 
-    private async Task<T> SendAsync<T>(HttpMethod method, string path, object? body = null, QueryStringBuilder? query = null, CancellationToken cancellationToken = default)
+    private async Task<T> SendAsync<T>(
+        HttpMethod method,
+        string path,
+        object? body = null,
+        QueryStringBuilder? query = null,
+        CancellationToken cancellationToken = default,
+        IEnumerable<string>? acceptMediaTypes = null)
     {
-        using var request = CreateRequest(method, BuildPath(path, query), body);
+        using var request = CreateRequest(method, BuildPath(path, query), body, acceptMediaTypes ?? DefaultAcceptMediaTypes);
         using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
         var responseBody = await ReadContentAsync(response).ConfigureAwait(false);
 
@@ -335,9 +360,15 @@ public sealed class TlyClient : IDisposable
         return DeserializeContent<T>(responseBody);
     }
 
-    private async Task SendWithoutResultAsync(HttpMethod method, string path, object? body = null, QueryStringBuilder? query = null, CancellationToken cancellationToken = default)
+    private async Task SendWithoutResultAsync(
+        HttpMethod method,
+        string path,
+        object? body = null,
+        QueryStringBuilder? query = null,
+        CancellationToken cancellationToken = default,
+        IEnumerable<string>? acceptMediaTypes = null)
     {
-        using var request = CreateRequest(method, BuildPath(path, query), body);
+        using var request = CreateRequest(method, BuildPath(path, query), body, acceptMediaTypes ?? DefaultAcceptMediaTypes);
         using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
         var responseBody = await ReadContentAsync(response).ConfigureAwait(false);
 
@@ -361,11 +392,15 @@ public sealed class TlyClient : IDisposable
         return CreateQrCodeResponse(content, response.Content?.Headers.ContentType?.MediaType, output);
     }
 
-    private HttpRequestMessage CreateRequest(HttpMethod method, string path, object? body)
+    private HttpRequestMessage CreateRequest(HttpMethod method, string path, object? body, IEnumerable<string> acceptMediaTypes)
     {
         var request = new HttpRequestMessage(method, path);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
-        request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(JsonMediaType));
+
+        foreach (var acceptMediaType in acceptMediaTypes)
+        {
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(acceptMediaType));
+        }
 
         if (!string.IsNullOrWhiteSpace(_userAgent))
         {
